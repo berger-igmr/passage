@@ -74,21 +74,33 @@ public class IssueLicenseWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 		OperatorLicenseService licenseService = context.get(OperatorLicenseService.class);
-		PersonalLicensePackDescriptor licensePack = pack.pack();
-		ServiceInvocationResult<IssuedLicense> result = licenseService.issueLicensePack(request.request(), licensePack);
-		if (!new NoSevereErrors().test(result.diagnostic())) {
-			new WizardInfoBar(this).installError("Export failed"); //$NON-NLS-1$
-			new DiagnosticDialog(getShell(), result.diagnostic()).open();
-			return false;
+		PersonalLicensePackDescriptor license = pack.pack();
+		ServiceInvocationResult<IssuedLicense> result = licenseService.issueLicensePack(request.request(), license);
+		boolean succeeded = new NoSevereErrors().test(result.diagnostic());
+		if (succeeded) {
+			processSuccess(license, result);
 		} else {
-			new WizardInfoBar(this).wipe();
-			new LicenseIssuedNotification(getShell()).showPersonal(result.data().get());
-			String mailFrom = info.mailFrom();
-			if (!mailFrom.isEmpty()) {
-				processingMail(mailFrom, licensePack, result.data().get());
-			}
-			broadcast(result.data().get());
-			return true;
+			processFaiure(result);
+		}
+		return succeeded;
+	}
+
+	private void processFaiure(ServiceInvocationResult<IssuedLicense> result) {
+		new WizardInfoBar(this).installError("Export failed"); //$NON-NLS-1$
+		new DiagnosticDialog(getShell(), result.diagnostic()).open();
+	}
+
+	private void processSuccess(PersonalLicensePackDescriptor license, ServiceInvocationResult<IssuedLicense> result) {
+		new WizardInfoBar(this).wipe();
+		new LicenseIssuedNotification(getShell()).showPersonal(result.data().get());
+		mail(license, result);
+		broadcast(result.data().get());
+	}
+
+	private void mail(PersonalLicensePackDescriptor licensePack, ServiceInvocationResult<IssuedLicense> result) {
+		String mailFrom = info.mailFrom();
+		if (!mailFrom.isEmpty()) {
+			processingMail(mailFrom, licensePack, result.data().get());
 		}
 	}
 
