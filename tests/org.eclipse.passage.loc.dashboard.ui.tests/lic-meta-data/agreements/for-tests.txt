@@ -1,0 +1,1 @@
+This licensing metainformation serves only testing purposes: intended to facilitate unit tests for licenses issuing process.

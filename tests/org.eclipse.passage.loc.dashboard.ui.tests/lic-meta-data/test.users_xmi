@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.passage.lic:UserOrigin xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.passage.lic="http://www.eclipse.org/passage/lic/users/2.0.0" identifier="test.user.origin" name="Test User Origin">
+  <users identifier="doe.john" name="John Doe" description="Runs any product anywhere" preferredEvaluationType="hardware" preferredEvaluationExpression="os.family=*">
+    <contact name="John Doe" email="doe.john@mail.me.not"/>
+  </users>
+  <users identifier="doe.james" name="James Doe" description="Runs on Win*" preferredEvaluationType="hardware" preferredEvaluationExpression="os.family=*indows">
+    <contact name="James Doe" email="doe.james@mail.me.not"/>
+  </users>
+</org.eclipse.passage.lic:UserOrigin>

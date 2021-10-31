@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<features:FeatureSet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:features="http://www.eclipse.org/passage/lic/features/2.0.0" identifier="test.feature.set" name="Test Features">
+  <features identifier="oep.lit.smart-editor" provider="OEP Lit" name="Smart Editor">
+    <featureVersions version="0.1.0" news="Not very smart yet"/>
+    <featureVersions version="1.0.0" news="Smart enough"/>
+  </features>
+  <features identifier="eop.lit.pdf-export" provider="OEP Lit" name="Export to PDF">
+    <featureVersions version="2.0.0"/>
+  </features>
+</features:FeatureSet>

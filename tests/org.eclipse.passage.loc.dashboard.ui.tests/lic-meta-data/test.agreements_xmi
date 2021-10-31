@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<agreements:AgreementGroup xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:agreements="http://www.eclipse.org/passage/lic/agreements/0.1.0" identifier="test.agreement.group" name="Test Agreement Group" description="">
+  <agreements identifier="for-test-purpose-only" name="For test purpose only" file="for-tests.txt" mime="text/plain"/>
+</agreements:AgreementGroup>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.passage.lic:LicensePlan xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.passage.lic="http://www.eclipse.org/passage/lic/licenses/2.0.0" identifier="test.license.plan" name="Test License Plan" description="Intended to handle test license issuing for LIT">
+  <agreements>for-test-purpose-only</agreements>
+  <features>
+    <feature identifier="oep.lit.smart-editor">
+      <versionMatch version="1.0.0" rule="compatible"/>
+    </feature>
+  </features>
+  <features>
+    <feature identifier="eop.lit.pdf-export">
+      <versionMatch version="2.0.0" rule="equivalent"/>
+    </feature>
+  </features>
+  <personal>
+    <license identifier="7c146fbe-8fe5-42c1-b083-03e852f8f89d" issueDate="2021-10-31T21:11:54.068+0300" plan="test.license.plan">
+      <product identifier="oep.lit.product-second" version="3.2.1"/>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <agreements identifier="for-test-purpose-only" name="For test purpose only" file="for-tests.txt" hashAlgo="MD5" hash="9AD66FEC15B5C9E600A90C4DE7E276FA" content="54686973206C6963656E73696E67206D657461696E666F726D6174696F6E20736572766573206F6E6C792074657374696E6720707572706F7365733A20696E74656E64656420746F20666163696C697461746520756E697420746573747320666F72206C6963656E7365732069737375696E672070726F636573732E" contentType="text/plain"/>
+      <user identifier="doe.john@mail.me.not" name="John Doe"/>
+    </license>
+    <grants identifier="7c146fbe-8fe5-42c1-b083-03e852f8f89d#0">
+      <feature identifier="oep.lit.smart-editor">
+        <versionMatch version="1.0.0" rule="compatible"/>
+      </feature>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <userAuthentication type="hardware" expression="os.family=*"/>
+    </grants>
+    <grants identifier="7c146fbe-8fe5-42c1-b083-03e852f8f89d#1">
+      <feature identifier="eop.lit.pdf-export">
+        <versionMatch version="2.0.0" rule="equivalent"/>
+      </feature>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <userAuthentication type="hardware" expression="os.family=*"/>
+    </grants>
+  </personal>
+  <personal>
+    <license identifier="8d6204cc-47e3-4a6c-83f1-599b8c0fbddb" issueDate="2021-10-31T21:15:46.280+0300" plan="test.license.plan">
+      <product identifier="oep.lit.product-second" version="3.2.1"/>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <agreements identifier="for-test-purpose-only" name="For test purpose only" file="for-tests.txt" hashAlgo="MD5" hash="9AD66FEC15B5C9E600A90C4DE7E276FA" content="54686973206C6963656E73696E67206D657461696E666F726D6174696F6E20736572766573206F6E6C792074657374696E6720707572706F7365733A20696E74656E64656420746F20666163696C697461746520756E697420746573747320666F72206C6963656E7365732069737375696E672070726F636573732E" contentType="text/plain"/>
+      <user identifier="doe.john@mail.me.not" name="John Doe"/>
+    </license>
+    <grants identifier="8d6204cc-47e3-4a6c-83f1-599b8c0fbddb#0">
+      <feature identifier="oep.lit.smart-editor">
+        <versionMatch version="1.0.0" rule="compatible"/>
+      </feature>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <userAuthentication type="hardware" expression="os.family=*"/>
+    </grants>
+    <grants identifier="8d6204cc-47e3-4a6c-83f1-599b8c0fbddb#1">
+      <feature identifier="eop.lit.pdf-export">
+        <versionMatch version="2.0.0" rule="equivalent"/>
+      </feature>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <userAuthentication type="hardware" expression="os.family=*"/>
+    </grants>
+  </personal>
+  <personal>
+    <license identifier="82acd41f-3fc6-4e8f-8990-878a1b60d3eb" issueDate="2021-10-31T21:16:32.729+0300" plan="test.license.plan">
+      <product identifier="oep.lit.product-second" version="3.2.1"/>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <signature>
+        <attributes name="issuer.name" value="org.eclipse.sdk.ide"/>
+        <attributes name="issuer.version" value="4.21.0"/>
+        <attributes name="issuer.licensing_status" value="not_required"/>
+      </signature>
+      <agreements identifier="for-test-purpose-only" name="For test purpose only" file="for-tests.txt" hashAlgo="MD5" hash="9AD66FEC15B5C9E600A90C4DE7E276FA" content="54686973206C6963656E73696E67206D657461696E666F726D6174696F6E20736572766573206F6E6C792074657374696E6720707572706F7365733A20696E74656E64656420746F20666163696C697461746520756E697420746573747320666F72206C6963656E7365732069737375696E672070726F636573732E" contentType="text/plain"/>
+      <user identifier="doe.john@mail.me.not" name="John Doe"/>
+    </license>
+    <grants identifier="82acd41f-3fc6-4e8f-8990-878a1b60d3eb#0">
+      <feature identifier="oep.lit.smart-editor">
+        <versionMatch version="1.0.0" rule="compatible"/>
+      </feature>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <userAuthentication type="hardware" expression="os.family=*"/>
+    </grants>
+    <grants identifier="82acd41f-3fc6-4e8f-8990-878a1b60d3eb#1">
+      <feature identifier="eop.lit.pdf-export">
+        <versionMatch version="2.0.0" rule="equivalent"/>
+      </feature>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <userAuthentication type="hardware" expression="os.family=*"/>
+    </grants>
+  </personal>
+  <personal>
+    <license identifier="8a9f2143-9b75-424d-818f-b7edc0f8fd98" issueDate="2021-10-31T21:17:37.025+0300" plan="test.license.plan">
+      <product identifier="oep.lit.product-second" version="3.2.1"/>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <signature>
+        <attributes name="issuer.name" value="org.eclipse.sdk.ide"/>
+        <attributes name="issuer.version" value="4.21.0"/>
+        <attributes name="issuer.licensing_status" value="not_required"/>
+      </signature>
+      <agreements identifier="for-test-purpose-only" name="For test purpose only" file="for-tests.txt" hashAlgo="MD5" hash="9AD66FEC15B5C9E600A90C4DE7E276FA" content="54686973206C6963656E73696E67206D657461696E666F726D6174696F6E20736572766573206F6E6C792074657374696E6720707572706F7365733A20696E74656E64656420746F20666163696C697461746520756E697420746573747320666F72206C6963656E7365732069737375696E672070726F636573732E" contentType="text/plain"/>
+      <user identifier="doe.john@mail.me.not" name="John Doe"/>
+    </license>
+    <grants identifier="8a9f2143-9b75-424d-818f-b7edc0f8fd98#0">
+      <feature identifier="oep.lit.smart-editor">
+        <versionMatch version="1.0.0" rule="compatible"/>
+      </feature>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <userAuthentication type="hardware" expression="os.family=*"/>
+    </grants>
+    <grants identifier="8a9f2143-9b75-424d-818f-b7edc0f8fd98#1">
+      <feature identifier="eop.lit.pdf-export">
+        <versionMatch version="2.0.0" rule="equivalent"/>
+      </feature>
+      <valid xsi:type="org.eclipse.passage.lic:ValidityPeriodClosed" from="2021-10-31T00:00:00.000+0300" until="2021-11-01T00:00:00.000+0300"/>
+      <userAuthentication type="hardware" expression="os.family=*"/>
+    </grants>
+  </personal>
+</org.eclipse.passage.lic:LicensePlan>

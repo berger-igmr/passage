@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.passage.lic:ProductLine xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.passage.lic="http://www.eclipse.org/passage/lic/products/0.5.0" identifier="test.product.line" name="Test Product Line">
+  <products identifier="oep.lit.product-first" name="First Product">
+    <productVersions version="1.2.3" name="Baltika">
+      <productVersionFeatures featureIdentifier="oep.lit.smart-editor" featureVersion="0.1.0" restrictionLevel="warn"/>
+    </productVersions>
+  </products>
+  <products identifier="oep.lit.product-second" name="Second Product">
+    <productVersions version="3.2.1" name="Ladoga">
+      <productVersionFeatures featureIdentifier="oep.lit.smart-editor" featureVersion="1.0.0" restrictionLevel="error"/>
+      <productVersionFeatures featureIdentifier="eop.lit.pdf-export" featureVersion="2.0.0" restrictionLevel="error"/>
+    </productVersions>
+  </products>
+</org.eclipse.passage.lic:ProductLine>
