@@ -15,7 +15,15 @@ package org.eclipse.passage.loc.dashboard.ui;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.eclipse.passage.lic.agreements.model.meta.AgreementsPackage;
 import org.eclipse.passage.lic.api.ServiceInvocationResult;
@@ -39,18 +47,55 @@ import org.osgi.framework.ServiceReference;
 final class TestData {
 
 	private final String folder = "lic-meta-data/"; //$NON-NLS-1$
+	private final Map<String, String> resources;
+
+	TestData() {
+		resources = new HashMap<>();
+		resources.put(FeaturesPackage.eNAME, "test.features_xmi"); //$NON-NLS-1$
+		resources.put(ProductsPackage.eNAME, "test.products_xmi"); //$NON-NLS-1$
+		resources.put(AgreementsPackage.eNAME, "test.agreements_xmi"); //$NON-NLS-1$
+		resources.put(UsersPackage.eNAME, "test.users_xmi"); //$NON-NLS-1$
+		resources.put(LicensesPackage.eNAME, "test.licenses_xmi"); //$NON-NLS-1$
+	}
 
 	TestData load() {
-		register(FeaturesPackage.eNAME, "test.features_xmi"); //$NON-NLS-1$
-		register(ProductsPackage.eNAME, "test.products_xmi"); //$NON-NLS-1$
-		register(AgreementsPackage.eNAME, "test.agreements_xmi"); //$NON-NLS-1$
-		register(UsersPackage.eNAME, "test.users_xmi"); //$NON-NLS-1$
-		register(LicensesPackage.eNAME, "test.licenses_xmi"); //$NON-NLS-1$
+		register(copy());
 		return this;
 	}
 
-	private void register(String domain, String relative) {
-		String path = new File(folder + relative).getAbsolutePath();
+	private void register(Map<String, String> copies) {
+		copies.entrySet().forEach(this::register);
+	}
+
+	private Map<String, String> copy() {
+		Path tmp;
+		try {
+			tmp = Files.createTempDirectory("lit"); //$NON-NLS-1$
+		} catch (IOException e) {
+			fail("Test preparation error: " + e); //$NON-NLS-1$
+			return Collections.emptyMap(); // unreachable
+		}
+		return resources.entrySet().stream()//
+				.collect(Collectors.toMap(Map.Entry::getKey, e -> copy(e.getValue(), tmp)));
+	}
+
+	private String copy(String relative, Path residence) {
+		Path source = Paths.get(absolute(relative));
+		Path copy = residence.resolve(relative);
+		try {
+			Files.copy(source, copy);
+		} catch (IOException e) {
+			fail("Test preparation error: " + e); //$NON-NLS-1$
+		}
+		return copy.toAbsolutePath().toString();
+
+	}
+
+	private void register(Map.Entry<String, String> resource) {
+		register(resource.getKey(), resource.getValue());
+	}
+
+	private void register(String domain, String path) {
 		boolean success = withAccess(access -> {
 			ServiceInvocationResult<Boolean> response = access.getDomainRegistry(domain).registerSource(path);
 			return new NoErrors().test(response.diagnostic());
@@ -60,14 +105,8 @@ final class TestData {
 		}
 	}
 
-	private <R> R withAccess(Function<EditingDomainRegistryAccess, R> query) {
-		BundleContext context = FrameworkUtil.getBundle(TestData.class).getBundleContext();
-		ServiceReference<EditingDomainRegistryAccess> reference = context
-				.getServiceReference(EditingDomainRegistryAccess.class);
-		EditingDomainRegistryAccess access = context.getService(reference);
-		R result = query.apply(access);
-		context.ungetService(reference);
-		return result;
+	private String absolute(String relative) {
+		return new File(folder + relative).getAbsolutePath();
 	}
 
 	UserDescriptor doeJohn() {
@@ -91,4 +130,13 @@ final class TestData {
 		});
 	}
 
+	private <R> R withAccess(Function<EditingDomainRegistryAccess, R> query) {
+		BundleContext context = FrameworkUtil.getBundle(TestData.class).getBundleContext();
+		ServiceReference<EditingDomainRegistryAccess> reference = context
+				.getServiceReference(EditingDomainRegistryAccess.class);
+		EditingDomainRegistryAccess access = context.getService(reference);
+		R result = query.apply(access);
+		context.ungetService(reference);
+		return result;
+	}
 }
