@@ -153,7 +153,9 @@ public abstract class BaseDomainRegistry<I> implements EditingDomainRegistry<I>,
 
 	@Override
 	public ServiceInvocationResult<Boolean> registerSource(String source) {
-		sources.add(source);
+		if (!sources.contains(source)) {
+			sources.add(source);
+		}
 		return loadSource(source);
 	}
 
