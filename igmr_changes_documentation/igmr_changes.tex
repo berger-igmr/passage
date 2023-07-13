@@ -1,0 +1,71 @@
+\documentclass[]{article}
+\usepackage{graphicx}
+\usepackage{url}
+
+%opening
+\title{IGMR Contributions to Eclipse Passage}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Whilst integrating Eclipse Passage into a product, the IGMR GmbH implemented further functionalities into Eclipse Passage. This document briefly describes the changes made, which are available in this repository.
+
+\end{abstract}
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\section{Overview}
+
+This branch is based on version 2.3.0 of Eclipse Passage, specifically commit d256d76e. \\
+
+The following changes are intended for an offsite server-system in which the Floating License Server acts as a backend server within a Docker container and processes licensing requests from Passage-protected applications exclusively via HTTPS. \\
+
+These changes are likely not suitable for direct integration into Eclipse Passage. For example, the ability to process licensing requests via HTTP has not been preserved, and running the FLS with these changes requires further configuration of both Docker and Apache. 
+
+\pagebreak
+
+\section{New Features}
+
+The main contribution of the IGMR to Eclipse Passage is the implementation of HTTPS support.
+
+\subsection{Server-side HTTPS  support}
+All changes are in \\ \path{bundles\org.eclipse.passage.lic.jetty\src\org\eclipse\passage\lic\internal\jetty\JettyServer.java} \\
+
+The Jetty Server is configured for HTTPS connections. The location of and password for the keystore file are read in from an external file. 
+
+\subsection{Client-side HTTPS support}
+\subsubsection{HttpClient.java}
+Located in \\
+\path{bundles\org.eclipse.passage.lic.hc\src\org\eclipse\passage\lic\hc\remote\impl\HttpClient.java} \\
+
+HttpURLConnection is replaced with HttpsURLConnection. Basic authorization headers are also added to the HttpsURLConnection object, with the username and password being derived from the contents of the license file.
+
+\subsubsection{RemoteRequest.java}
+Located in \\
+\path{bundles\org.eclipse.passage.lic.hc\src\org\eclipse\passage\lic\hc\remote\impl\RemoteRequest.java} \\
+
+HttpURLConnection is replaced with HttpsURLConnection. The string "http" is replaced with "https".
+
+\subsubsection{NetConnection.java}
+Located in \\
+\path{bundles\org.eclipse.passage.lic.hc\src\org\eclipse\passage\lic\hc\remote\impl\NetConnection.java} \\
+
+HttpURLConnection is replaced with HttpsURLConnection.
+
+\section{Miscellaneous Changes}
+
+\begin{itemize}
+	\item Warning levels in Passage Operator and in the Floating License Server are changed from warning to info.
+	\item The startup console prompt is bypassed in \\
+	\path{bundles\org.eclipse.passage.lic.equinox\src\org\eclipse\passage\lic\equinox\access\Options.java}
+	\item A newer version of log4j was manually imported due to compatibility issues.
+\end{itemize}
+
+\end{document}
