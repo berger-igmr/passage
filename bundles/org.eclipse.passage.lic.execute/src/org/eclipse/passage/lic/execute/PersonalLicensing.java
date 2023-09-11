@@ -29,9 +29,9 @@ import org.eclipse.passage.lic.base.acquire.UserHomeLicenseAcquisitionService;
 import org.eclipse.passage.lic.base.conditions.mining.UserHomeResidentConditions;
 import org.eclipse.passage.lic.base.registry.ReadOnlyRegistry;
 import org.eclipse.passage.lic.equinox.acquire.ConfigurationLicenseAcquisitionService;
-import org.eclipse.passage.lic.equinox.acquire.InstallationLicenseAcquisitionService;
+// import org.eclipse.passage.lic.equinox.acquire.InstallationLicenseAcquisitionService;
 import org.eclipse.passage.lic.equinox.conditions.ConfigurationResidentConditions;
-import org.eclipse.passage.lic.equinox.conditions.InstallationResidentConditions;
+// import org.eclipse.passage.lic.equinox.conditions.InstallationResidentConditions;
 
 final class PersonalLicensing implements LicensingDirection {
 
@@ -41,12 +41,12 @@ final class PersonalLicensing implements LicensingDirection {
 	PersonalLicensing(Supplier<MiningEquipment> equipment) {
 		this.conditions = new ReadOnlyRegistry<>(Arrays.asList(//
 				new UserHomeResidentConditions(equipment.get()), //
-				new InstallationResidentConditions(equipment.get()), //
+				// new InstallationResidentConditions(equipment.get()), //
 				new ConfigurationResidentConditions(equipment.get())//
 		));
 		this.acquirers = new ReadOnlyRegistry<>(Arrays.asList(//
 				new UserHomeLicenseAcquisitionService(), //
-				new InstallationLicenseAcquisitionService(), //
+				// new InstallationLicenseAcquisitionService(), //
 				new ConfigurationLicenseAcquisitionService()//
 		));
 	}
