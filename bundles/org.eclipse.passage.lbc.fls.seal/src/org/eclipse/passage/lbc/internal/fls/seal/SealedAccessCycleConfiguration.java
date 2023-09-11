@@ -26,9 +26,9 @@ import org.eclipse.passage.lic.base.acquire.UserHomeLicenseAcquisitionService;
 import org.eclipse.passage.lic.base.conditions.mining.UserHomeResidentConditions;
 import org.eclipse.passage.lic.base.registry.ReadOnlyRegistry;
 import org.eclipse.passage.lic.equinox.acquire.ConfigurationLicenseAcquisitionService;
-import org.eclipse.passage.lic.equinox.acquire.InstallationLicenseAcquisitionService;
+// import org.eclipse.passage.lic.equinox.acquire.InstallationLicenseAcquisitionService;
 import org.eclipse.passage.lic.equinox.conditions.ConfigurationResidentConditions;
-import org.eclipse.passage.lic.equinox.conditions.InstallationResidentConditions;
+// import org.eclipse.passage.lic.equinox.conditions.InstallationResidentConditions;
 import org.eclipse.passage.lic.execute.BaseAccessCycleConfiguration;
 import org.osgi.framework.FrameworkUtil;
 
@@ -41,12 +41,12 @@ final class SealedAccessCycleConfiguration extends BaseAccessCycleConfiguration 
 		super(product, () -> FrameworkUtil.getBundle(SealedAccessCycleConfiguration.class));
 		conditions = new ReadOnlyRegistry<>(Arrays.asList(//
 				new UserHomeResidentConditions(miningEquipment()), //
-				new InstallationResidentConditions(miningEquipment()), //
+				// new InstallationResidentConditions(miningEquipment()), //
 				new ConfigurationResidentConditions(miningEquipment())//
 		));
 		acquirers = new ReadOnlyRegistry<>(Arrays.asList(//
 				new UserHomeLicenseAcquisitionService(), //
-				new InstallationLicenseAcquisitionService(), //
+				// new InstallationLicenseAcquisitionService(), //
 				new ConfigurationLicenseAcquisitionService()//
 		));
 	}
