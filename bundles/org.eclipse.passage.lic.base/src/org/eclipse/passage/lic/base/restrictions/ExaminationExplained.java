@@ -35,17 +35,20 @@ import org.eclipse.passage.lic.internal.base.i18n.ExaminationExplanedMessages;
  * 
  * @since 2.1
  */
-public final class ExaminationExplained implements Supplier<String> {
-
+public final class ExaminationExplained implements Supplier<String>
+{
+	
 	private final ExaminationCertificate certificate;
-
-	public ExaminationExplained(ExaminationCertificate certificate) {
+	
+	public ExaminationExplained(ExaminationCertificate certificate)
+	{
 		Objects.requireNonNull(certificate, "ExaminationExplained::certificate"); //$NON-NLS-1$
 		this.certificate = certificate;
 	}
-
+	
 	@Override
-	public String get() {
+	public String get()
+	{
 		StringBuilder out = new StringBuilder();
 		List<String> features = features();
 		out.append(String.format(//
@@ -60,8 +63,10 @@ public final class ExaminationExplained implements Supplier<String> {
 		appendAgreements(out);
 		return out.toString();
 	}
-
-	private void appendFeatures(List<String> features, StringBuilder out) {
+	
+	private void appendFeatures(List<String> features,
+								StringBuilder out)
+	{
 		out.append(String.format(ExaminationExplanedMessages.getString(//
 				"ExaminationExplained.features_prelude"), features.size())); //$NON-NLS-1$
 		features.forEach(feature -> out//
@@ -69,8 +74,9 @@ public final class ExaminationExplained implements Supplier<String> {
 				.append(feature)//
 				.append("\r\n")); //$NON-NLS-1$
 	}
-
-	private void appendRestriction(StringBuilder out) {
+	
+	private void appendRestriction(StringBuilder out)
+	{
 		out.append(String.format(ExaminationExplanedMessages.getString(//
 				"ExaminationExplained.restrictions_prelude"), certificate.restrictions().size())); //$NON-NLS-1$
 		certificate.restrictions().forEach(restriction -> out//
@@ -90,12 +96,14 @@ public final class ExaminationExplained implements Supplier<String> {
 				.append("\r\n") //$NON-NLS-1$
 		);
 	}
-
-	private String reason(TroubleCode code) {
+	
+	private String reason(TroubleCode code)
+	{
 		return String.format("%d: %s", code.code(), code.explanation());//$NON-NLS-1$
 	}
-
-	private void appendPermissions(StringBuilder out) {
+	
+	private void appendPermissions(StringBuilder out)
+	{
 		Collection<Requirement> satisfied = certificate.satisfied();
 		out.append(String.format(ExaminationExplanedMessages.getString("ExaminationExplained.permissions_prelude"), //$NON-NLS-1$
 				satisfied.size()));
@@ -127,27 +135,25 @@ public final class ExaminationExplained implements Supplier<String> {
 				.append("\r\n") //$NON-NLS-1$
 		);
 	}
-
-	private void appendAgreements(StringBuilder out) {
+	
+	private void appendAgreements(StringBuilder out)
+	{
 		Collection<AgreementToAccept> agreements = certificate.agreements();
-		out.append(String.format("Agreements state contains %d entries.\r\n", agreements.size())); //$NON-NLS-1$
+		out.append(String.format(ExaminationExplanedMessages.getString("ExaminationExplained.agreement_state_contains"), agreements.size())); //$NON-NLS-1$
 		agreements.forEach(agreement -> {
-			out.append("\tagreement [") //$NON-NLS-1$
-					.append(agreement.definition().path())//
-					.append("]\r\n\tdeclared by [") //$NON-NLS-1$
-					.append(agreement.origin())//
-					.append("]\r\n\thas [") //$NON-NLS-1$
-					.append(agreement.acceptance().accepted() ? "accepted" : "not accepted") //$NON-NLS-1$//$NON-NLS-2$
-					.append("] state.\r\n"); //$NON-NLS-1$
-			if (agreement.acceptance().error().isPresent()) {
-				out.append("\terror:\r\n\t") //$NON-NLS-1$
-						.append(new TroubleExplained(agreement.acceptance().error().get()).get())//
+			out.append(ExaminationExplanedMessages.getString("ExaminationExplained.agreement")).append(agreement.definition().path())// //$NON-NLS-1$
+					.append(ExaminationExplanedMessages.getString("ExaminationExplained.declared_by")).append(agreement.origin())// //$NON-NLS-1$
+					.append(ExaminationExplanedMessages.getString("ExaminationExplained.has")).append(agreement.acceptance().accepted() ? ExaminationExplanedMessages.getString("ExaminationExplained.accepted") : ExaminationExplanedMessages.getString("ExaminationExplained.not_accepted")).append("] state.\r\n");  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$//$NON-NLS-4$
+			if (agreement.acceptance().error().isPresent())
+			{
+				out.append(ExaminationExplanedMessages.getString("ExaminationExplained.error")).append(new TroubleExplained(agreement.acceptance().error().get()).get())// //$NON-NLS-1$
 						.append("\r\n"); //$NON-NLS-1$
 			}
 		});
 	}
-
-	private List<String> features() {
+	
+	private List<String> features()
+	{
 		List<String> permitted = certificate.satisfied().stream()//
 				.map(certificate::satisfaction) //
 				.map(this::feature)//
@@ -159,20 +165,23 @@ public final class ExaminationExplained implements Supplier<String> {
 				.collect(Collectors.toList());
 		return new SumOfLists<String>().apply(permitted, prohibited);
 	}
-
-	private String feature(Permission permission) {
+	
+	private String feature(Permission permission)
+	{
 		return String.format(ExaminationExplanedMessages.getString("ExaminationExplained.feature_format"), //$NON-NLS-1$
 				permission.condition().feature(), //
 				permission.condition().versionMatch().version());
 	}
-
-	private String feature(Restriction restriction) {
+	
+	private String feature(Restriction restriction)
+	{
 		return String.format(ExaminationExplanedMessages.getString("ExaminationExplained.feature_format"), //$NON-NLS-1$
 				restriction.unsatisfiedRequirement().feature().identifier(), //
 				restriction.unsatisfiedRequirement().feature().version());
 	}
-
-	private String date(ZonedDateTime date) {
+	
+	private String date(ZonedDateTime date)
+	{
 		return DateTimeFormatter.RFC_1123_DATE_TIME.format(date);
 	}
 }
