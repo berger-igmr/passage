@@ -98,6 +98,10 @@ public final class HttpClient<T> implements Client<NetConnection, T>
 		// add authorization header to HTTPS request
 		con.setRequestProperty("Authorization", authHeader); //$NON-NLS-1$
 		
+		// set timeouts
+		con.setConnectTimeout(5000);
+		con.setReadTimeout(5000);
+		
 		return request.config().apply(new NetConnection(con));
 	}
 	
