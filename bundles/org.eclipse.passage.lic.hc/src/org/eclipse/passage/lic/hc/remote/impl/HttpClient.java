@@ -27,6 +27,9 @@ import org.eclipse.passage.lic.hc.remote.Request;
 import org.eclipse.passage.lic.hc.remote.RequestContext;
 import org.eclipse.passage.lic.hc.remote.ResponseHandler;
 import org.eclipse.passage.lic.internal.hc.i18n.AccessMessages;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * 
@@ -34,6 +37,9 @@ import org.eclipse.passage.lic.internal.hc.i18n.AccessMessages;
  */
 public final class HttpClient<T> implements Client<NetConnection, T>
 {
+	
+	// Logger
+	private static MessageLogger logger = new MessageLogger(HttpClient.class);
 	
 	@Override
 	public ServiceInvocationResult<T> request(	Request<NetConnection> request,
@@ -109,12 +115,33 @@ public final class HttpClient<T> implements Client<NetConnection, T>
 													ResponseHandler<T> handler,
 													RequestContext context) throws Exception
 	{
-		// actual connection is happening on this construction of the results
-		ResultsTransfered results = new ResultsTransfered(connection);
+		logger.logMessage("netResults: Starting client connection attempt..."); //$NON-NLS-1$
+		
+		ResultsTransfered results = null;
+		
+		try
+		{ // actual connection is happening on this construction of the results
+			results = new ResultsTransfered(connection);
+		}
+		catch (Exception e)
+		{
+			logger.logMessage("Connection error: " + e.getMessage()); //$NON-NLS-1$
+			
+			MessageBox box = new MessageBox(new Shell(), SWT.CANCEL | SWT.OK);
+			box.setText("Connection Error"); //$NON-NLS-1$
+			box.setMessage(e.getMessage());
+			box.open();
+			
+			throw e;
+		}
+		
 		if (!results.successful())
 		{
+			logger.logMessage("netResults: not successful. Returning."); //$NON-NLS-1$
 			return new BaseServiceInvocationResult<>(results.diagnose());
 		}
+		
+		logger.logMessage("netResults: successful. Returning."); //$NON-NLS-1$
 		return new BaseServiceInvocationResult<>(handler.read(results, context));
 	}
 	
