@@ -125,11 +125,12 @@ public final class HttpClient<T> implements Client<NetConnection, T>
 		}
 		catch (Exception e)
 		{
-			logger.logMessage("Connection error: " + e.getMessage()); //$NON-NLS-1$
+			logger.logMessage("netResults: connection error: \n" + e.getMessage()); //$NON-NLS-1$
 			
-			MessageBox box = new MessageBox(new Shell(), SWT.CANCEL | SWT.OK);
+			MessageBox box = new MessageBox(new Shell(), SWT.ERROR | SWT.OK);
 			box.setText("Connection Error"); //$NON-NLS-1$
-			box.setMessage(e.getMessage());
+			box.setMessage("An error occurred when attempting to connect to the licensing server: \n\n" + e.getMessage() //$NON-NLS-1$
+							+ "\n\n Please check your connection and try again."); //$NON-NLS-1$
 			box.open();
 			
 			throw e;
